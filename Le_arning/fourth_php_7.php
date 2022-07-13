@@ -11,6 +11,9 @@ if($_POST['first_name']){
 }
 if($_POST['last_name']) {
     print $_POST['last_name'];
+    print "\n";
     echo strlen($_POST['last_name']);
 }
 ?>
+<!--вывести имя и фамилию из input и посчитать длинны выводимых строк-->
+

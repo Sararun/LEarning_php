@@ -1,6 +1,7 @@
 <?php
 //
-////Второе и третье упражнеие из учебника php7
+//Второе и третье упражнеие из учебника php7
+// Вывести цены позиций и посчитать сумму, проценты и ндс и общую суммую
 //$mnoj=2;
 //$ham=4.95;
 //$milk=1.95;
@@ -18,13 +19,3 @@
 <!--    <li> summa with nds --><?php //print $summa + $nds?><!--</li>-->
 <!--    <li> summa with nds plus chai --><?php //print $summa + $nds + $chai?><!--</li>-->
 <!--</ul>-->
-<?php
-//четвёртое упражнение
-print<<<_HTML_
-<form method="post" action="fourth_php_7.php">
-    <input type="text" name="first_name"><br>
-    <input type="text" name="last_name"><br>
-    <button type="submit">A</button>
-</form>
-_HTML_;
-?>
