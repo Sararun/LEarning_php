@@ -1,8 +1,8 @@
 <?php
 function html_url($url,$alt=null,$height=null,$width=null){
-    $html='<img src="' . $url . '"/>';
+    $html='<img src="' . $url . '"';
     if(isset($alt)){
-        print $html .='alt="' . $alt . '"';
+         $html .='alt="' . $alt . '"';
     }
     if(isset($height)){
          $html .='height="' . $height . '"';
