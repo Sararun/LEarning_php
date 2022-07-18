@@ -12,7 +12,8 @@ $america=['Нью-Йорк', 'NY'=>8175133,
 
 $total=0;
 $state_totals=array();
-foreach($america as $city_info){
+foreach($america as  $city_info){
+    echo $city_info;
     $total+=$city_info[2];
     if(!array_key_exists($city_info[1], $state_totals)){
         $state_totals[$city_info[1]]=0;
