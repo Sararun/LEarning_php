@@ -11,8 +11,9 @@ class PriceEntree extends Entree{
      public function getPrice(){
          $price =0;
          foreach ($this->ingridients as $ingridient){
-             $cost += $ingridient->getPrice();
+             $price += $ingridient->getPrice();
          }
          return $price;
      }
 }
+//Тут надо было наследовать ингриденты от класса Entree и вычислить сумму цен ингридиентов
