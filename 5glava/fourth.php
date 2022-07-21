@@ -9,7 +9,7 @@ class Ingridient{
         $this->name=$name;
         $this->price=$price;
     }
-    public function getNname(){
+    public function getName(){
         return $this->name;
     }
     public function setPrice($price){
