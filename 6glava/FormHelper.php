@@ -4,21 +4,23 @@ class FormHelper{
 
     public function __construct($values=array()){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $this->$values=$_POST;
-        }else{
             $this->values=$values;
+
+        }else{
+            $this->$values=$_POST;
         }
     }
+
     public function input($type, $attributes=array(), $isMultiple=false){
         $attributes['type']=$type;
         if(($type=='radio') || ($type=='checkbox')){
-            if($this->isOptionSelected($attributes['name']
-            ?? null, $attributes['value'] ?? null)){
+            if($this->isOptionSelected($attributes['name'] ?? null, $attributes['value'] ?? null)){
                 $attributes['checked']=true;
             }
         }
         return $this->tag('input', $attributes, $isMultiple);
     }
+
     public function select($options, $attributes=array()){
         $multiple=$attributes['multiple'] ?? false;
         return
@@ -26,6 +28,7 @@ class FormHelper{
             $this->options($attributes['name'] ?? null, $options).
             $this->end('select');
     }
+
     public function textarea($attribtes=array()){
         $name=$attribtes['name'] ?? null;
         $value=$this->values[$name]??'';
@@ -33,18 +36,22 @@ class FormHelper{
             htmlentities($value).
             $this->end('textarea');
     }
+
     public function tag($tag,$attributes = array(), $isMultiple=false){
         return
         "<$tag {$this->attributes($attributes, $isMultiple)}/>";
     }
+
     public function start($tag, $attributes=array(), $isMultiple=false){
         $valueAttribute = (! (($tag == 'select') || ($tag == 'textarea')));
         $attrs = $this->attributes($attributes, $isMultiple, $valueAttribute);
         return "<$tag $attrs>";
     }
+
     public function  end($tag){
         return "</$tag>";
     }
+
     protected function attributes($attributes, $isMultiple, $valueAttribute = true ){
         $tmp=array();
         if($valueAttribute && isset($attributes['name']) && array_key_exists($attributes['name'], $this->values)){
@@ -65,4 +72,32 @@ class FormHelper{
         return implode(' ', $tmp);
     }
 
+    protected function options($name, $options){
+        $tmp=array();
+        foreach($options as $k => $v){
+            $s = "<option value=\"{this->encode($k)}\"";
+            if($this->isOptionSelected($name, $k)){
+                $s .=' selected';
+            }
+            $s .=">{$this->encode($v)}</option>";
+            $tmp[] = $s;
+        }
+        return implode('', $tmp);
+    }
+
+    protected function isOptionSelected($name, $value){//проверка присутствия имени
+        if(!isset($this->values[$name])){
+            return false;
+        }elseif (is_array($this->values[$name])){
+            return in_array($value, $this->values[$name]);
+        }
+        else{
+            return $value == $this->values[$name];
+        }
+    }
+
+    public function encode($s){
+        return htmlentities($s);
+    }
 }
+
