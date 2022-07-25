@@ -45,8 +45,8 @@ class FormHelper {
 
     public function start($tag, $attributes = array(),
                           $isMultiple = false) {
-// Дескрипторы <select> и <textarea> не получают
-// атрибуты value
+/* Дескрипторы <select> и <textarea> не получают
+ атрибуты value*/
         $valueAttribute =
             (! (($tag == 'select')||($tag == 'textarea')));
         $attrs = $this->attributes($attributes, $isMultiple,
@@ -59,9 +59,9 @@ class FormHelper {
     protected function attributes($attributes, $isMultiple, $valueAttribute = true) {
         $tmp = array();
 
-        // Если данный дескриптор может содержать атрибут value,
-        // а его имени соответствует элемент в массиве значений,
-        // то установить этот атрибут
+        /* Если данный дескриптор может содержать атрибут value,
+         а его имени соответствует элемент в массиве значений,
+         то установить этот атрибут*/
         if ($valueAttribute && isset($attributes['name'])
             && array_key_exists($attributes['name'],
                 $this->values)) {
@@ -69,16 +69,16 @@ class FormHelper {
                 $this->values[$attributes['name']];
         }
         foreach ($attributes as $k => $v) {
-        // Истинное логическое значение означает
-        // логический атрибут
+        /* Истинное логическое значение означает
+         логический атрибут*/
             if (is_bool($v)) {
                 if ($v) { $tmp[] = $this->encode($k); }
             }
         // иначе k = v
             else {
                 $value = $this->encode($v);
-        // Если это многозначный элемент, присоединить
-        // квадратные скобки ([]) к его имени
+        /* Если это многозначный элемент, присоединить
+         квадратные скобки ([]) к его имени*/
                 if ($isMultiple && ($k == 'name')) {
                     $value .= '[]';
                 }
