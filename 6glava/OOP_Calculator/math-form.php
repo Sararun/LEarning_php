@@ -14,7 +14,7 @@
             <td><?= $form->input('text', ['name' => 'num1']) ?></td>
         </tr>
         <tr><td>Operation: </td>
-            <td><?= $form->select($GLOBALS['aper'], ['name' => 'ap']) ?></td>
+            <td><?= $form->select($GLOBALS['operand'], ['name' => 'ap']) ?></td>
         </tr>
         <tr><td>Second Number:</td>
             <td><?= $form->input('text', ['name' => 'num2']) ?></td>

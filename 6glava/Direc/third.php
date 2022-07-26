@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 function showForm($errors=array()){    //Будет передавать данные в html
     $form=new FormHelper();
-    include 'shippinf-form.php';
+    include 'shipping-form.php';
 }
 function validateForm(){   //Правильность вводимой информации
     $input = array();

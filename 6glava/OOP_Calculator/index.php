@@ -1,6 +1,6 @@
 <?php
 require 'FormHelper.php';
-$aper=array('+','-','*','/');
+$operand=array('+','-','*','/');
 // Если форма передана обработку проверить достоверность данных
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -17,15 +17,15 @@ $aper=array('+','-','*','/');
 
 
 function showForm($errors= array()){   //  показ формы
-    $defaults= array('num1'=>2, 'ap'=>2, 'num2'=>8);
+    $defaults= array('num1'=>2, 'secArgument'=>2, 'num2'=>8);
     $form=new FormHelper($defaults);
     include 'math-form.php';    //  html разметка
 }
 function validateForm(){   //  проверка качества формы
     $input=array();
     $errors=array();
-    $input['ap']=$GLOBALS['aper'][$_POST['ap']]??'';
-    if(!in_array($input['ap'], $GLOBALS['aper'])){
+    $input['secArgument']=$GLOBALS['operand'][$_POST['secArgument']]??'';
+    if(!in_array($input['ap'], $GLOBALS['operand'])){
         $errors='Please select a valid operation';
     }
     $input['num1']=filter_input(INPUT_POST, 'num1',FILTER_VALIDATE_FLOAT ); //  ключи должны быть числовыми
@@ -36,7 +36,7 @@ function validateForm(){   //  проверка качества формы
     if(is_null($input['num2']) || ($input['num2']===false)){
         $errors[]='Please check valid second number';
     }
-    if(($input['ap'] == '/') && ($input['num2']==0)){   //  деление на ноль
+    if(($input['secArgument'] == '/') && ($input['num2']==0)){   //  деление на ноль
         $errors[]='Please don\'division by zero';
     }
     return array($errors, $input);
@@ -44,16 +44,16 @@ function validateForm(){   //  проверка качества формы
 
 function processForm($input){
    $result=0;
-   if($input['ap']=='+'){
+   if($input['secArgument']=='+'){
        $result= $input['num1'] + $input['num2'];
-   }elseif ($input['ap']=='-'){
+   }elseif ($input['secArgument']=='-'){
        $result= $input['num1'] - $input['num2'];
-   }elseif($input['ap']=='*'){
+   }elseif($input['secArgument']=='*'){
        $result= $input['num1'] * $input['num2'];
-   }elseif($input['ap']=='/'){
+   }elseif($input['secArgument']=='/'){
        $result= $input['num1'] / $input['num2'];
    }
-   $message = "{$input['num1']} {$input['ap']}  {$input['num2']}=$result";
+   $message = "{$input['num1']} {$input['secArgument']}  {$input['num2']}=$result";
    print "<h3>    $message  </h3>";
 }
 
