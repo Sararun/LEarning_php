@@ -4,24 +4,24 @@ $aper=array('+','-','*','/');
 // Если форма передана обработку проверить достоверность данных
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        list($errors, $input)=validate_form();
+        list($errors, $input)=validateForm();
         if($errors){
-            show_form($errors);
+            showForm($errors);
         }else{
-            process_form($input);
-            show_form();
+            processForm($input);
+            showForm();
         }
     }else{
-        show_form();
+        showForm();
     }
 
 
-function show_form($errors= array()){   //  показ формы
+function showForm($errors= array()){   //  показ формы
     $defaults= array('num1'=>2, 'ap'=>2, 'num2'=>8);
     $form=new FormHelper($defaults);
     include 'math-form.php';    //  html разметка
 }
-function validate_form(){   //  проверка качества формы
+function validateForm(){   //  проверка качества формы
     $input=array();
     $errors=array();
     $input['ap']=$GLOBALS['aper'][$_POST['ap']]??'';
@@ -42,7 +42,7 @@ function validate_form(){   //  проверка качества формы
     return array($errors, $input);
 }
 
-function process_form($input){
+function processForm($input){
    $result=0;
    if($input['ap']=='+'){
        $result= $input['num1'] + $input['num2'];

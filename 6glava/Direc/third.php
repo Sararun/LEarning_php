@@ -10,20 +10,20 @@ $states = [ 'AL', 'АК', 'AZ', 'AR', 'СА', 'СО', 'СТ', 'DC',
 
 //Проверка обработка формы, это делается один раз, поэтому функция не нужна
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    list($errors, $input)=validate_form();
+    list($errors, $input)=validateForm();
     if($errors){
-        show_form($errors);
+        showForm($errors);
     }else{
-        process_form($errors);
+        processForm($errors);
     }
 }else{
-    show_form();
+    showForm();
 }
-function show_form($errors=array()){    //Будет передавать данные в html
+function showForm($errors=array()){    //Будет передавать данные в html
     $form=new FormHelper();
     include 'shippinf-form.php';
 }
-function validate_form(){   //Правильность вводимой информации
+function validateForm(){   //Правильность вводимой информации
     $input = array();
     $errors = array();
     foreach (['from', 'to'] as $addr) {
@@ -63,7 +63,7 @@ function validate_form(){   //Правильность вводимой инфо
     }
     return array($errors, $input);
 }
-function process_form($input){
+function processForm($input){
     $tpl=<<<HTML
     <p>Your package is {height}" x {width}" x {depth}" and weights {weight}</p>
     <p>IT is coming from:</p>

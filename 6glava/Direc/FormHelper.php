@@ -21,7 +21,7 @@ class FormHelper {
         return $this->tag('input', $attributes, $isMultiple);
     }
 
-    public function select($options, $attributes = array()) { //Рахметка для дикскрипторов в стиле select
+    public function select($options, $attributes = array()) { //Разметка для дикскрипторов в стиле select
         $multiple = $attributes['multiple'] ?? false;
         return
             $this->start('select', $attributes, $multiple) .
@@ -29,7 +29,7 @@ class FormHelper {
             $this->end('select');
     }
 
-    public function textarea($attributes = array()) { //Метод формированяия текста
+    public function textАrea($attributes = array()) { //Метод формированяия текста
         $name = $attributes['name'] ?? null;
         $value = $this->values[$name] ?? '';
         return $this->start('textarea', $attributes) .

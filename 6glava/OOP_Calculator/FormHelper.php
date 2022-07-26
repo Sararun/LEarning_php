@@ -21,7 +21,7 @@ class FormHelper {
         return $this->tag('input', $attributes, $isMultiple);
     }
 
-    public function select($options, $attributes = array()) { //Рахметка для дикскрипторов в стиле select
+    public function select($options, $attributes = array()) { //Разметка для дикскрипторов в стиле select
         $multiple = $attributes['multiple'] ?? false;
         return
             $this->start('select', $attributes, $multiple) .
@@ -29,7 +29,7 @@ class FormHelper {
             $this->end('select');
     }
 
-    public function textarea($attributes = array()) { //Метод формированяия текста
+    public function textАrea($attributes = array()) { //Метод формированяия текста
         $name = $attributes['name'] ?? null;
         $value = $this->values[$name] ?? '';
         return $this->start('textarea', $attributes) .
@@ -45,8 +45,8 @@ class FormHelper {
 
     public function start($tag, $attributes = array(),  //ФОрмирования начального диксриптора формы
                           $isMultiple = false) {
-/* Дескрипторы <select> и <textarea> не получают
- атрибуты value*/
+        /* Дескрипторы <select> и <textarea> не получают
+         атрибуты value*/
         $valueAttribute =
             (! (($tag == 'select')||($tag == 'textarea')));
         $attrs = $this->attributes($attributes, $isMultiple,
@@ -69,16 +69,16 @@ class FormHelper {
                 $this->values[$attributes['name']];
         }
         foreach ($attributes as $k => $v) {
-        /* Истинное логическое значение означает
-         логический атрибут*/
+            /* Истинное логическое значение означает
+             логический атрибут*/
             if (is_bool($v)) {
                 if ($v) { $tmp[] = $this->encode($k); }
             }
-        // иначе k = v
+            // иначе k = v
             else {
                 $value = $this->encode($v);
-        /* Если это многозначный элемент, присоединить
-         квадратные скобки ([]) к его имени*/
+                /* Если это многозначный элемент, присоединить
+                 квадратные скобки ([]) к его имени*/
                 if ($isMultiple && ($k == 'name')) {
                     $value .= '[]';
                 }
@@ -86,7 +86,7 @@ class FormHelper {
             }
         }
         return implode(' ', $tmp);
-        }
+    }
 
     protected function options($name, $options) { // Форматирование options для select
         $tmp = array();
