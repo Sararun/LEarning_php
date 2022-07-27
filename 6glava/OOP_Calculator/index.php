@@ -25,7 +25,7 @@ function validateForm(){   //  проверка качества формы
     $input=array();
     $errors=array();
     $input['secArgument']=$GLOBALS['operand'][$_POST['secArgument']]??'';
-    if(!in_array($input['ap'], $GLOBALS['operand'])){
+    if(!in_array($input['secArgument'], $GLOBALS['operand'])){
         $errors='Please select a valid operation';
     }
     $input['num1']=filter_input(INPUT_POST, 'num1',FILTER_VALIDATE_FLOAT ); //  ключи должны быть числовыми
@@ -37,23 +37,19 @@ function validateForm(){   //  проверка качества формы
         $errors[]='Please check valid second number';
     }
     if(($input['secArgument'] == '/') && ($input['num2']==0)){   //  деление на ноль
-        $errors[]='Please don\'division by zero';
+        $errors[]='Please don\'t division by zero';
     }
     return array($errors, $input);
 }
 
 function processForm($input){
-   $result=0;
-   if($input['secArgument']=='+'){
-       $result= $input['num1'] + $input['num2'];
-   }elseif ($input['secArgument']=='-'){
-       $result= $input['num1'] - $input['num2'];
-   }elseif($input['secArgument']=='*'){
-       $result= $input['num1'] * $input['num2'];
-   }elseif($input['secArgument']=='/'){
-       $result= $input['num1'] / $input['num2'];
-   }
-   $message = "{$input['num1']} {$input['secArgument']}  {$input['num2']}=$result";
+   $secArgs=['+'=>function($num1,$num2){return $num1 +$num2; },
+             '-'=>function($num1,$num2){return $num1 -$num2; },
+             '*'=>function($num1,$num2){return $num1 *$num2; },
+             '/'=>function($num1,$num2){return $num1 /$num2; }];
+
+   $message = "{$input['num1']} {$input['secArgument']}  {$input['num2']}=
+   {$secArgs[$input['secArgument']]($input['num1'], $input['num2'])}";
    print "<h3>    $message  </h3>";
 }
 
